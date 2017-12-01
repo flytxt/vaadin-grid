@@ -78,7 +78,44 @@ This program is available under Apache License Version 2.0, available at https:/
 
       _order: Number,
 
-      _reorderStatus: Boolean
+      _reorderStatus: Boolean,
+
+      /**
+       * Path to a property that will be filtered by this column. If set, a filter input
+       * will be automatically placed on the header cell of the column.
+       */
+      filterBy: String,
+
+      /**
+       * Filter type for that column, it can take values 'number', 'text', 'list', 'date', 'boolean'.
+       */
+      filterType: String,
+
+      /**
+       * Filter list for that column, set only if the filter type is a list.
+       */
+      filterList: Array,
+
+      /**
+       * Filter value that will be used to filter the items using the property defined
+       * in `filterBy` property.
+       */
+      filterValue: String,
+
+      /**
+       * Filter data-source for that column, set only if the filter type is a list and it is a remote filter.
+       */
+      filterSource: Object,
+
+      /**
+       * id-accessor that will be used by the filter data-source
+       */
+      idAccessor: String,
+
+      /**
+       * label-accessor that will be used by the filter data-source
+       */
+      labelAccessor: String
     },
 
     observers: [

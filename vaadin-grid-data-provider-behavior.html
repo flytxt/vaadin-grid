@@ -109,6 +109,39 @@
           return {};
         }
       },
+      /**
+       * If `true`, a toggle icon will be visible, to enpable/disable the autorefresh.
+       */
+      showRefreshButton: {
+        type: Boolean,
+        value: function() {
+          return Polymer.dom(this).node.hasAttribute('enable-auto-refresh');
+        }
+      },
+
+      /**
+       * If `true`, the list will autmatically update after the specified time.
+       */
+      enableAutoRefresh: {
+        type: Boolean,
+        value: false,
+        observer: '_autoRefreshOnOff'
+      },
+
+      /**
+       * Automatically trigger the datasource to update the list.
+       */
+      refreshInterval: {
+        type: Number,
+        value: 20000
+      },
+
+      /**
+       * Tooltip for the refresh toggle button.
+       */
+      autoRefreshLabel: {
+        type: String
+      }
     },
 
     _templateItemChanged: function(e) {
@@ -128,6 +161,11 @@
         }
       });
     },
+    /*attached: function() {
+      if (this.enableAutoRefresh) {
+        this._refreshData(this.dataProvider, this._currentPage);
+      }
+    },*/
 
     _getCachedItem: function(index) {
       var page = this._getPageForIndex(index);
@@ -295,6 +333,27 @@
           this.$.scroller.hasData = true;
         }.bind(this));
       }
+    },
+    _refreshData: function() {
+      if (this.enableAutoRefresh) {
+        if (this.isDebouncerActive('reloadData')) {
+          this.cancelDebouncer('reloadData');
+        }
+        this.debounce('reloadData', this._refreshData, this.refreshInterval);
+        if (this.dataProvider) {
+          this._loadPage();
+        }
+      }
+    },
+
+    detached: function() {
+      if (this.isDebouncerActive('reloadData')) {
+        this.cancelDebouncer('reloadData');
+      }
+    },
+
+    _autoRefreshOnOff: function() {
+      this.fire('refresh-on-off', {refresh : this.enableAutoRefresh});
     }
 
   };
