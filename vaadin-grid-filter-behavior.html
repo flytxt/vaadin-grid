@@ -31,7 +31,7 @@
     },
 
     _filterChanged: function(e) {
-      if (this._filters.indexOf(e.target) === -1) {
+      if (!this.customFilter && this._filters.indexOf(e.target) === -1) {
         this._filters.push(e.target);
       }
 
@@ -43,7 +43,7 @@
     },
 
     _mapFilters: function() {
-      return this._filters.map(function(filter) {
+      return this.customFilter ? this._filters : this._filters.map(function(filter) {
         return {
           path: filter.path,
           value: filter.value
