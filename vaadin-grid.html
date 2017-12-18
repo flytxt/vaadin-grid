@@ -230,13 +230,13 @@ first element in the cell will be focused. You can override the behavior by appl
         height: 100%;
         width: 100%;
       }
-      /*:host .refresher {
+      :host .refresher {
         position: absolute;
-        top: 0;
-        right: 1em;
+        top: 0.5em;
+        right: 4em;
         z-index: 2;
-        @apply(--auto-refresh-icon);
-      }*/
+        @apply(--vaadin-auto-refresh-icon);
+      }
     </style>
 
     <style include="vaadin-grid-table-scroll-styles"></style>
@@ -269,12 +269,9 @@ first element in the cell will be focused. You can override the behavior by appl
       <vaadin-grid-table-focus-trap id="footerFocusTrap" slot="footerFocusTrap" on-focus-gained="_onFooterFocus" on-focus-lost="_onFocusout">
       </vaadin-grid-table-focus-trap>
     </vaadin-grid-table>
-    <template is="dom-if" if="[[ customFilter ]]">
-      <content select=".custom-filter"></content>
-    </template>
-    <!--<template is="dom-if" if="[[ showRefreshButton ]]">
+    <template is="dom-if" if="[[ showRefreshButton ]]">
       <paper-toggle-button class="refresher" checked="{{ enableAutoRefresh }}" title="[[ autoRefreshLabel ]]"></paper-toggle-button>
-    </template> -->
+    </template> 
   </template>
 </dom-module>
 
