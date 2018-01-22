@@ -366,6 +366,9 @@
 
     _autoRefreshOnOff: function() {
       this.fire('refresh-on-off', {refresh : this.enableAutoRefresh});
+      if (this.enableAutoRefresh) {
+        this._refreshData(this.dataSource, this._currentPage);
+      }
     }
 
   };
